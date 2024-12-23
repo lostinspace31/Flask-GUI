@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer Tool - Code 2</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        /* Optional styling for the buttons */
+        .zoom-buttons {
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .zoom-buttons button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            Explorer Tool
+        </div>
+
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <a href="/">Home</a>
+                <a href="/code1">Code 1</a>
+                <a href="/code2" class="active">Code 2</a>
+                <a href="/code3">Code 3</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="content">
+                <div class="form-container">
+                    <h2>Submit Parameters</h2>
+                    <form action="/code2" method="post">
+                        <label for="param">Parameter:</label>
+                        <input type="text" id="param" name="param" required>
+                        <button type="submit">Execute</button>
+                    </form>
+                </div>
+
+                <!-- Zoom Buttons -->
+                <div class="zoom-buttons">
+                    <button onclick="zoomIn()">+</button>
+                    <button onclick="zoomOut()">-</button>
+                </div>
+
+                <!-- Background with output visualization -->
+                <div class="background">
+                    <iframe id="outputIframe" src="/static/output.html" width="1000" height="800" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScale = 1; // Initial scale
+
+        function zoomIn() {
+            currentScale += 0.1; // Increase scale by 10%
+            document.getElementById('outputIframe').style.transform = `scale(${currentScale})`;
+            document.getElementById('outputIframe').style.transformOrigin = '0 0'; // Set zoom origin at the top-left corner
+        }
+
+        function zoomOut() {
+            if (currentScale > 0.2) { // Prevent scaling below 20%
+                currentScale -= 0.1; // Decrease scale by 10%
+                document.getElementById('outputIframe').style.transform = `scale(${currentScale})`;
+                document.getElementById('outputIframe').style.transformOrigin = '0 0'; // Set zoom origin at the top-left corner
+            }
+        }
+    </script>
+</body>
+</html>

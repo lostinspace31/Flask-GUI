@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer Tool - Code 1</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div>Explorer Tool</div>
+        </div>
+
+        <div class="main-content">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <a href="/">Home</a>
+                <a href="/code1">Code 1</a>
+                <a href="/code2">Code 2</a>
+                <a href="/code3">Code 3</a>
+            </div>
+
+            <!-- Main Content -->
+            <div class="content">
+                <!-- Form Section -->
+                <div class="form-container">
+                    <h2>Submit Parameters</h2>
+                    <form action="/code1" method="post">
+                        <label for="param1">Parameter 1:</label>
+                        <input type="text" id="param1" name="param1" required>
+                        
+                        <label for="param2">Parameter 2:</label>
+                        <input type="text" id="param2" name="param2" required>
+                        
+                        <label for="param3">Parameter 3:</label>
+                        <select id="param3" name="param3" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                        
+                        <label for="param4">Parameter 4:</label>
+                        <input type="text" id="param4" name="param4" required>
+                        
+                        <label for="param5">Parameter 5:</label>
+                        <input type="text" id="param5" name="param5">
+                        
+                        <label for="param6">Parameter 6:</label>
+                        <input type="text" id="param6" name="param6">
+
+                        <button type="submit">Execute</button>
+                    </form>
+                </div>
+
+                <!-- Output Control Buttons -->
+                <div class="output-buttons">
+                    <button id="show-table">Table</button>
+                    <button id="show-observations">Observations</button>
+                </div>
+
+                <!-- Output Section -->
+                <div id="output-container" class="output-container">
+                    <table id="excel-table">
+                        {% if table_data %}
+                        <thead>
+                            <tr>
+                                {% for header in table_data['headers'] %}
+                                <th>{{ header }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in table_data['rows'] %}
+                            <tr>
+                                {% for cell in row %}
+                                <td>{{ cell }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        {% endif %}
+                    </table>
+                </div>
+
+                <!-- Observations Section -->
+                <div id="observations-container" class="observations-container">
+                    <h3>Observations</h3>
+                    {% if observations %}
+                        {% for observation in observations %}
+                            <div class="observation-item">{{ observation }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript to handle button toggles
+        const showTableBtn = document.getElementById('show-table');
+        const showObsBtn = document.getElementById('show-observations');
+        const outputContainer = document.getElementById('output-container');
+        const obsContainer = document.getElementById('observations-container');
+
+        showTableBtn.addEventListener('click', () => {
+            outputContainer.style.display = 'block';
+            obsContainer.style.display = 'none';
+        });
+
+        showObsBtn.addEventListener('click', () => {
+            obsContainer.style.display = 'block';
+            outputContainer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
