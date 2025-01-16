@@ -1,0 +1,306 @@
+html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorer Tool - Code 1</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div class="title">Explorer Tool</div>
+            <div class="logo">
+                <img src="/static/logo.svg" alt="Logo">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Control Buttons -->
+            <button class="go-home-button">Go to Home</button>
+            <button class="help-button">Help</button>
+            
+            <!-- Display Section -->
+            <div class="display">Switch Statistics</div>
+
+            <!-- Main Content -->
+            <div class="content">
+                <!-- Form and Checkboxes Section -->
+                <div class="form-container-small">
+                    <h2>Submit Parameters</h2>
+                    <form action="/code1" method="post">
+                        <div class="form-params">
+                            <div class="params">
+                                <label for="param1">Parameter 1:</label>
+                                <input type="text" id="param1" name="param1" required>
+                                
+                                <label for="param2">Parameter 2:</label>
+                                <input type="text" id="param2" name="param2" required>
+                                
+                                <label for="param3">Parameter 3:</label>
+                                <select id="param3" name="param3" required>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                </select>
+                                
+                                <label for="param4">Parameter 4:</label>
+                                <input type="text" id="param4" name="param4" required>
+                            </div>
+
+                            <div class="separator"></div>
+
+                            <div class="checkboxes">
+                                <label><input type="checkbox" name="checkbox1"> Checkbox 1</label>
+                                <label><input type="checkbox" name="checkbox2"> Checkbox 2</label>
+                                <label><input type="checkbox" name="checkbox3"> Checkbox 3</label>
+                                <label><input type="checkbox" name="checkbox4"> Checkbox 4</label>
+                                <label><input type="checkbox" name="checkbox5"> Checkbox 5</label>
+                                <label><input type="checkbox" name="checkbox6"> Checkbox 6</label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="execute-button">Execute</button>
+                    </form>
+                </div>
+
+                <!-- Output Section -->
+                <div id="output-container" class="output-container">
+                    <h3>Execution Log</h3>
+                    <pre id="log-output">{% if log_content %}{{ log_content }}{% endif %}</pre>
+                </div>
+            </div>
+
+            <!-- Notes Section -->
+            <div class="notes-container">
+                <h3>Notes</h3>
+                <div class="notes-content">
+                    <p>Add any relevant notes or information here.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light background for contrast */
+    color: #333; /* Dark text */
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.title-bar {
+    display: flex;
+    justify-content: space-between; /* Space between title and logo */
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.2rem;
+}
+
+.title-bar .title {
+    font-size: 1.2rem;
+}
+
+.title-bar .logo img {
+    height: 40px; /* Adjust height as needed */
+}
+
+.main-content {
+    position: relative; /* Needed for positioning the buttons */
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+.go-home-button, .help-button {
+    position: absolute;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.go-home-button {
+    top: 10px;
+    left: 20px;
+    background-color: #333;
+    color: white;
+}
+
+.go-home-button:hover {
+    background-color: #575757;
+}
+
+.help-button {
+    top: 10px;
+    right: 20px;
+    padding: 5px 10px;
+    background-color: transparent; /* Transparent background */
+    color: #333; /* Dark text color */
+    border: 1px solid #333; /* Add a border to make the button visible */
+}
+
+.help-button:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Slight hover effect */
+}
+
+.display {
+    margin-top: 50px; /* Ensure it appears below the title bar */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+    text-align: left; /* Align text to the left */
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.form-container-small {
+    width: 45%; /* Adjusted width */
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+}
+
+.form-container-small h2 {
+    margin: 0 0 10px;
+    font-size: 1rem;
+}
+
+.form-params {
+    display: flex;
+    justify-content: space-between;
+}
+
+.params {
+    width: 45%; /* Adjusted width */
+}
+
+.separator {
+    width: 2px;
+    background-color: #ccc;
+    margin: 0 20px;
+}
+
+.checkboxes {
+    width: 45%; /* Adjusted width */
+}
+
+.checkboxes label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.form-container-small label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.form-container-small input[type="text"],
+.form-container-small select {
+    width: 90%; /* Make input fields smaller */
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 0.8rem;
+}
+
+.execute-button {
+    margin-top: 20px; /* Space below the parameter inputs */
+    text-align: left; /* Align the button to the left */
+    padding: 5px 10px;
+    font-size: 0.8rem;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.execute-button:hover {
+    background-color: #575757;
+}
+
+.output-container {
+    width: 45%; /* Adjusted width */
+    display: block; /* Initially visible */
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+}
+
+#log-output {
+    white-space: pre-wrap; /* Make sure the text wraps */
+    max-height: 300px; /* Limit height */
+    overflow-y: auto; /* Add scroll if necessary */
+    background: #f9f9f9; /* Light background for log */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.instructions-container {
+    width: 45%; /* Adjusted width */
+    background: white; /* Match style with form container */
+    padding: 20px;
+    margin-top: 20px; /* Space between containers */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+}
+
+.instructions-container h3 {
+    margin: 0 0 10px;
+    font-size: 1rem;
+}
+
+.notes-container {
+    width: 100%; /* Full width for horizontal extension */
+    display: flex;
+    justify-content: space-between;
+    background: white; /* Match style with form container */
+    padding: 20px;
+    margin-top: 20px; /* Space between containers */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 0.8rem;
+}
+
+.notes-container h3 {
+    margin: 0 0 10px;
+    font-size: 1rem;
+}
+
+.notes-container .notes-content {
+    width: 100%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
